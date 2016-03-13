@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ismapro",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "pg": "^4.5.1"
+  }
 }
