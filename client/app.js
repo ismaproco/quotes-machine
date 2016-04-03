@@ -8,7 +8,7 @@ var jm = require('./factories/readers/JSONHandler');
 qm.setConfig(config);
 
 //get the query promise
-var result = qm.execute('SELECT keyword_id, keyword, usage from KEYWORDS order by usage');
+/*var result = qm.execute('SELECT keyword_id, keyword, usage from KEYWORDS order by usage');
 
 result
 .then( function(result){
@@ -21,6 +21,7 @@ result
 jm.getLocalJSON('data/keywords.json').then(function(data){
   console.log('the basket was open', data);
 });
+*/
 
 // keep the service running *
 // execute load operation
