@@ -22,7 +22,7 @@ jm.getLocalJSON('data/keywords.json').then(function(data){
   console.log('the basket was open', data);
 });
 
-// keep the service running
+// keep the service running *
 // execute load operation
 // query the wiki for new titles
 // save the titles
