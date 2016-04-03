@@ -2,6 +2,7 @@
 
 var config = require('./config');
 var qm = require('./factories/db/queryHandler');
+var jm = require('./factories/readers/JSONHandler');
 
 //set the config object of the queryHandler
 qm.setConfig(config);
@@ -16,3 +17,14 @@ result
 .fail( function(err){
   console.log('error', err);
 });
+
+jm.getLocalJSON('data/keywords.json').then(function(data){
+  console.log('the basket was open', data);
+});
+
+// keep the service running
+// execute load operation
+// query the wiki for new titles
+// save the titles
+// close connection
+// wait for the next execution
