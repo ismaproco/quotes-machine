@@ -57,4 +57,14 @@ describe('db test', function(){
       }).fail((err) => { handleFail(err,done) });
     }).fail((err) => { handleFail(err,done) });
   });
+
+  it('- keyword delete ', (done) => {
+    // cm = clientManager
+    qm.getClient().then( ( cm ) => {
+      dm.keywords.remove(cm, ['Gabriel Garcia Marquez']).then( (result) => {
+        expect(result).toBeGreaterThan(0);
+        done();
+      }).fail((err) => { handleFail(err,done) });
+    }).fail((err) => { handleFail(err,done) });
+  });
 });

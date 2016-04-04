@@ -35,7 +35,6 @@ var get = (cm, keyword) => {
     var query = 'SELECT keyword_id, keyword, usage from KEYWORDS'+
                 ' where keyword like $1 order by usage';
 
-    //client.query('SELECT keyword_id, keyword, usage from KEYWORDS order by usage', function(err, result) {
     client.query(query,[keyword] ,function(err, result) {
         
         if (handleError(err)) {
@@ -49,10 +48,28 @@ var get = (cm, keyword) => {
 }
 
 
+var remove = (cm, values) => {
+    var client = cm.client;
+    var defer = q.defer();
+    var query = "DELETE FROM KEYWORDS WHERE KEYWORD LIKE $1";
+
+    client.query(query, values ,function(err, result) {
+        
+        if (handleError(err)) {
+          defer.reject(err);
+        }
+        
+        defer.resolve(result.rowCount);
+    });
+
+    return defer.promise;
+}
+
 
 var dal = {
     insert: insert,
-    get: get
+    get: get,
+    remove: remove
 };
 
 module.exports = dal;
