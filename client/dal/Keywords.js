@@ -9,17 +9,18 @@ var handleError = (err) => {
     }
 };
 
-var insert = (client, values) => {
+var insert = (cm, values) => {
     var defer = q.defer();
-    var query = 'INSERT INTO KEYWORDS (keyword_id, keyword, usage)' +
-        ' VALUES ($1, $2, $3)';
+    var client = cm.client;
+
+    var query = 'INSERT INTO KEYWORDS (keyword, usage)' +
+        ' VALUES ($1, $2) RETURNING keyword_id';
     if (client) {
         client.query(query, values, (err, result) => {
             if (handleError(err)) {
                 defer.reject(err);
             }
-
-            defer.resolve(result);
+            defer.resolve(result.rows);
         });
     } else {
         defer.reject({ err: 'no client' });

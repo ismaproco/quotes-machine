@@ -5,6 +5,19 @@ var dm = require('../factories/db/dalManager');
 
 describe('db test', function(){
 
+  var handleFail = (err, done) => {
+    console.error('FAIL',err);
+    expect(err).toBeUndefined();
+    if(done) {
+      done();  
+    }
+  };
+
+  afterEach(() => {
+    //release clients that remain open
+    qm.releaseClients();  
+  });
+
   it('is config connection string defined?', (done) => {
     expect(config.dbConnection).toBeDefined();
     done();
@@ -16,10 +29,7 @@ describe('db test', function(){
     qm.getClient().then( (data) => {
       expect(data).toBeDefined();
       done();
-    }).fail((err) => {
-      console.error('error...', err);
-      done();
-    });
+    }).fail((err) => { handleFail(err,done) });
   });
 
   it('- keyword validation', (done) => {
@@ -28,25 +38,23 @@ describe('db test', function(){
 
       dm.keywords.get(cm, 'XXXXX').then( (result) => {
         expect(result.length).toBe(0);
-      }).fail(() => {
-        expect(false).toBe(true);
-      });
+      }).fail((err) => { handleFail(err,done) });
 
       dm.keywords.get(cm, 'John Green (author)').then( (result) => {
         expect(result.length).toBeGreaterThan(0);
         done()
-      }).fail(() => {
-        expect(false).toBe(true);
-        done();
-      });
+      }).fail((err) => { handleFail(err,done) });
 
-    }).fail(()=> {
-      console.error('FAIL');
-    });
+    }).fail((err) => { handleFail(err,done) });
   });
-
-
-  //release clients that remain open
-  qm.releaseClients();
-
+  
+  it('- keyword insert ', (done) => {
+    // cm = clientManager
+    qm.getClient().then( ( cm ) => {
+      dm.keywords.insert(cm, ['Gabriel Garcia Marquez', null ]).then( (result) => {
+        expect(result.length).toBeGreaterThan(0);
+        done();
+      }).fail((err) => { handleFail(err,done) });
+    }).fail((err) => { handleFail(err,done) });
+  });
 });

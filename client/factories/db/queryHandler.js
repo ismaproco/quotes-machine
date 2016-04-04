@@ -32,7 +32,13 @@ var getClient = function getClient() {
 var releaseClients = () => {
   for( var i = 0; i < clients.length; i++ ) {
     if(clients[i]) {
-      clients[i].done();
+      if(clients[i].done) {
+        clients[i].done();  
+      }
+      
+      if(clients[i].end) {
+        clients[i].end();  
+      }
     }
   }
 };
