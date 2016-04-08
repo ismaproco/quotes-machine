@@ -33,9 +33,9 @@ var get = (cm, quote_id) => {
     var client = cm.client;
     var defer = q.defer();
     var query = 'SELECT quote_id, title_id, quote from QUOTES'+
-                ' where quote_id like $1';
+                ' where quote_id = $1';
 
-    client.query(query,[keyword] ,function(err, result) {
+    client.query(query,[quote_id] ,function(err, result) {
         
         if (handleError(err)) {
           defer.reject(err);
@@ -51,14 +51,11 @@ var get = (cm, quote_id) => {
 var remove = (cm, values) => {
     var client = cm.client;
     var defer = q.defer();
-    var query = "DELETE FROM QUOTES WHERE KEYWORD LIKE $1";
-
+    var query = "DELETE FROM QUOTES WHERE quote_id = $1";
     client.query(query, values ,function(err, result) {
-        
         if (handleError(err)) {
           defer.reject(err);
         }
-        
         defer.resolve(result.rowCount);
     });
 

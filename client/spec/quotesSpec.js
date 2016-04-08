@@ -2,8 +2,8 @@ var config = require('../config');
 var qm = require('../factories/db/queryHandler');
 var dm = require('../factories/db/dalManager');
 
-describe('db keywords test', function(){
-
+describe('db quotes test', function(){
+  var _quote_id;
   var handleFail = (err, done) => {
     console.error('FAIL',err);
     expect(err).toBeUndefined();
@@ -13,42 +13,44 @@ describe('db keywords test', function(){
   };
 
   qm.setConfig(config);
-
+  
   afterEach(() => {
     //release clients that remain open
     qm.releaseClients();  
   });
 
-  it('- keyword validation', (done) => {
+  it('- quotes insert ', (done) => {
     // cm = clientManager
     qm.getClient().then( ( cm ) => {
-
-      dm.keywords.get(cm, 'XXXXX').then( (result) => {
-        expect(result.length).toBe(0);
-      }).fail((err) => { handleFail(err,done) });
-
-      dm.keywords.get(cm, 'John Green (author)').then( (result) => {
-        expect(result.length).toBeGreaterThan(0);
-        done()
-      }).fail((err) => { handleFail(err,done) });
-
-    }).fail((err) => { handleFail(err,done) });
-  });
-  
-  it('- keyword insert ', (done) => {
-    // cm = clientManager
-    qm.getClient().then( ( cm ) => {
-      dm.keywords.insert(cm, ['Gabriel Garcia Marquez', null ]).then( (result) => {
+      dm.quotes.insert(cm, [null , 'TEST_QUOTE' ]).then( (result) => {
+        
+        _quote_id = result[0].quote_id;
         expect(result.length).toBeGreaterThan(0);
         done();
       }).fail((err) => { handleFail(err,done) });
     }).fail((err) => { handleFail(err,done) });
   });
 
-  it('- keyword delete ', (done) => {
+  it('- quotes validation', (done) => {
     // cm = clientManager
     qm.getClient().then( ( cm ) => {
-      dm.keywords.remove(cm, ['Gabriel Garcia Marquez']).then( (result) => {
+
+      dm.quotes.get(cm, 0).then( (result) => {
+        expect(result.length).toBe(0);
+      }).fail((err) => { handleFail(err,done) });
+
+      dm.quotes.get(cm, _quote_id).then( (result) => {
+        expect(result.length).toBeGreaterThan(0);
+        done()
+      }).fail((err) => { handleFail(err,done) });
+
+    }).fail((err) => { handleFail(err,done) });
+  });
+    
+
+  it('- quotes delete ', (done) => {
+    qm.getClient().then( ( cm ) => {
+      dm.quotes.remove(cm, [_quote_id]).then( (result) => {
         expect(result).toBeGreaterThan(0);
         done();
       }).fail((err) => { handleFail(err,done) });
