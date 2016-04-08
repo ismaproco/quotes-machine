@@ -33,9 +33,9 @@ var get = (cm, source_id) => {
     var client = cm.client;
     var defer = q.defer();
     var query = 'SELECT source_id, source_name from SOURCES'+
-                ' where source_id like $1';
+                ' where source_id = $1';
 
-    client.query(query,[keyword] ,function(err, result) {
+    client.query(query,[source_id] ,function(err, result) {
         
         if (handleError(err)) {
           defer.reject(err);
@@ -51,7 +51,7 @@ var get = (cm, source_id) => {
 var remove = (cm, values) => {
     var client = cm.client;
     var defer = q.defer();
-    var query = "DELETE FROM SOURCES WHERE source_name LIKE $1";
+    var query = "DELETE FROM SOURCES WHERE source_id = $1";
 
     client.query(query, values ,function(err, result) {
         
