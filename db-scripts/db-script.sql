@@ -101,6 +101,10 @@ ALTER TABLE quotes OWNER TO ismapro;
 -- Name: sources; Type: TABLE; Schema: public; Owner: ismapro
 --
 
+CREATE SEQUENCE SOURCE_ID_SEQ;
+SELECT setval('SOURCE_ID_SEQ', 2);
+ALTER TABLE SOURCES ALTER COLUMN SOURCE_ID SET DEFAULT NEXTVAL('SOURCE_ID_SEQ');
+
 CREATE TABLE sources (
     source_id integer NOT NULL,
     source_name character varying(512)
@@ -113,6 +117,12 @@ ALTER TABLE sources OWNER TO ismapro;
 -- TOC entry 173 (class 1259 OID 16447)
 -- Name: titles; Type: TABLE; Schema: public; Owner: ismapro
 --
+
+
+CREATE SEQUENCE TITLE_ID_SEQ;
+SELECT setval('TITLE_ID_SEQ', 2);
+ALTER TABLE TITLE ALTER COLUMN TITLE_ID SET DEFAULT NEXTVAL('TITLE_ID_SEQ');
+
 
 CREATE TABLE titles (
     title_id bigint NOT NULL,
