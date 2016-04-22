@@ -1,6 +1,6 @@
-var config = require('../config');
-var qm = require('../factories/db/queryHandler');
-var jm = require('../factories/readers/JSONHandler');
+var config = require('../../config');
+var qm = require('../../factories/db/queryHandler');
+var jm = require('../../factories/readers/JSONHandler');
 
 describe('db test', function(){
 

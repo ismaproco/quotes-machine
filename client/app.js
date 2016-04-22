@@ -7,7 +7,12 @@ var sm = require('./factories/managers/ServiceManager');
 
 //set the config object of the queryHandler
 qm.setConfig(config);
-var m = sm.create(config.serviceInterval, [1,2,3,4,5]);
+
+var myF = () => {
+    console.log('this is some func');
+};
+
+var m = sm.create(config.serviceInterval, [{run:myF},{run:myF},{run:myF},{run:myF},{run:myF}]);
 m.start();
 setTimeout(()=> {m.stop()},20100);
 //get the query promise
