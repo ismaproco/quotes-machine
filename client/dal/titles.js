@@ -29,13 +29,13 @@ var insert = (cm, values) => {
     return defer.promise;
 };
 
-var get = (cm, quote_id) => {
+var get = (cm, source_id) => {
     var client = cm.client;
     var defer = q.defer();
     var query = 'SELECT title_id, title_name, source_id from TITLES'+
-                ' where title_id like $1';
+                ' where title_id = $1';
 
-    client.query(query,[keyword] ,function(err, result) {
+    client.query(query,[source_id] ,function(err, result) {
         
         if (handleError(err)) {
           defer.reject(err);
@@ -51,7 +51,7 @@ var get = (cm, quote_id) => {
 var remove = (cm, values) => {
     var client = cm.client;
     var defer = q.defer();
-    var query = "DELETE FROM TITLES WHERE title_id LIKE $1";
+    var query = "DELETE FROM TITLES WHERE title_id = $1";
 
     client.query(query, values ,function(err, result) {
         
