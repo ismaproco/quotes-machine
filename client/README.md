@@ -4,11 +4,11 @@
 Implement tests
 ------------------------------
 
-- [ ] test inserts in the titles, keywords, and quotes.
-- [ ] test reads for titles, keywords, and quotes.
-- [ ] test updates for titles, keywords and quotes.
-- [ ] tests for the limited db reads (n by n).
-- [ ] test for the chunck advance n by n.
+- [x] test inserts in the titles, keywords, and quotes.
+- [x] test reads for titles, keywords, and quotes.
+- [x] test updates for titles, keywords and quotes.
+- [x] tests for the limited db reads (n by n).
+- [x] test for the chunck advance n by n.
 
 Implement the dataflow for keywords-title
 ----------------------------------------------
