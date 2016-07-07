@@ -36,7 +36,7 @@ SET search_path = public, pg_catalog;
 
 --
 -- TOC entry 177 (class 1259 OID 16486)
--- Name: keyword_id_seq; Type: SEQUENCE; Schema: public; Owner: ismapro
+-- Name: keyword_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE keyword_id_seq
@@ -47,7 +47,7 @@ CREATE SEQUENCE keyword_id_seq
     CACHE 1;
 
 
-ALTER TABLE keyword_id_seq OWNER TO ismapro;
+ALTER TABLE keyword_id_seq OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -55,7 +55,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 176 (class 1259 OID 16478)
--- Name: keywords; Type: TABLE; Schema: public; Owner: ismapro
+-- Name: keywords; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE keywords (
@@ -65,11 +65,11 @@ CREATE TABLE keywords (
 );
 
 
-ALTER TABLE keywords OWNER TO ismapro;
+ALTER TABLE keywords OWNER TO postgres;
 
 --
 -- TOC entry 178 (class 1259 OID 16491)
--- Name: quotes_id_seq; Type: SEQUENCE; Schema: public; Owner: ismapro
+-- Name: quotes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE quotes_id_seq
@@ -80,11 +80,11 @@ CREATE SEQUENCE quotes_id_seq
     CACHE 1;
 
 
-ALTER TABLE quotes_id_seq OWNER TO ismapro;
+ALTER TABLE quotes_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 174 (class 1259 OID 16452)
--- Name: quotes; Type: TABLE; Schema: public; Owner: ismapro
+-- Name: quotes; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE quotes (
@@ -94,34 +94,35 @@ CREATE TABLE quotes (
 );
 
 
-ALTER TABLE quotes OWNER TO ismapro;
+ALTER TABLE quotes OWNER TO postgres;
 
 --
 -- TOC entry 175 (class 1259 OID 16460)
--- Name: sources; Type: TABLE; Schema: public; Owner: ismapro
+-- Name: sources; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE SOURCE_ID_SEQ;
 SELECT setval('SOURCE_ID_SEQ', 2);
-ALTER TABLE SOURCES ALTER COLUMN SOURCE_ID SET DEFAULT NEXTVAL('SOURCE_ID_SEQ');
 
 CREATE TABLE sources (
     source_id integer NOT NULL,
     source_name character varying(512)
 );
 
+ALTER TABLE SOURCES ALTER COLUMN SOURCE_ID SET DEFAULT NEXTVAL('SOURCE_ID_SEQ');
 
-ALTER TABLE sources OWNER TO ismapro;
+
+
+ALTER TABLE sources OWNER TO postgres;
 
 --
 -- TOC entry 173 (class 1259 OID 16447)
--- Name: titles; Type: TABLE; Schema: public; Owner: ismapro
+-- Name: titles; Type: TABLE; Schema: public; Owner: postgres
 --
 
 
 CREATE SEQUENCE TITLE_ID_SEQ;
 SELECT setval('TITLE_ID_SEQ', 2);
-ALTER TABLE TITLE ALTER COLUMN TITLE_ID SET DEFAULT NEXTVAL('TITLE_ID_SEQ');
 
 
 CREATE TABLE titles (
@@ -130,71 +131,14 @@ CREATE TABLE titles (
     source_id integer
 );
 
+ALTER TABLE titles ALTER COLUMN TITLE_ID SET DEFAULT NEXTVAL('TITLE_ID_SEQ');
 
-ALTER TABLE titles OWNER TO ismapro;
-
---
--- TOC entry 2899 (class 0 OID 0)
--- Dependencies: 177
--- Name: keyword_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ismapro
---
-
-SELECT pg_catalog.setval('keyword_id_seq', 29, true);
-
-
---
--- TOC entry 2888 (class 0 OID 16478)
--- Dependencies: 176
--- Data for Name: keywords; Type: TABLE DATA; Schema: public; Owner: ismapro
---
-
-COPY keywords (keyword_id, keyword, usage) FROM stdin;
-1   John Green (author) \N
-\.
-
-
---
--- TOC entry 2886 (class 0 OID 16452)
--- Dependencies: 174
--- Data for Name: quotes; Type: TABLE DATA; Schema: public; Owner: ismapro
---
-
-COPY quotes (quote_id, title_id, quote) FROM stdin;
-\.
-
-
---
--- TOC entry 2900 (class 0 OID 0)
--- Dependencies: 178
--- Name: quotes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ismapro
---
-
-SELECT pg_catalog.setval('quotes_id_seq', 2, true);
-
-
---
--- TOC entry 2887 (class 0 OID 16460)
--- Dependencies: 175
--- Data for Name: sources; Type: TABLE DATA; Schema: public; Owner: ismapro
---
-
-COPY sources (source_id, source_name) FROM stdin;
-\.
-
-
---
--- TOC entry 2885 (class 0 OID 16447)
--- Dependencies: 173
--- Data for Name: titles; Type: TABLE DATA; Schema: public; Owner: ismapro
---
-
-COPY titles (title_id, title_name, source_id) FROM stdin;
-\.
+ALTER TABLE titles OWNER TO postgres;
 
 
 --
 -- TOC entry 2773 (class 2606 OID 16485)
--- Name: keywords_pkey; Type: CONSTRAINT; Schema: public; Owner: ismapro
+-- Name: keywords_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY keywords
@@ -203,7 +147,7 @@ ALTER TABLE ONLY keywords
 
 --
 -- TOC entry 2769 (class 2606 OID 16459)
--- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: ismapro
+-- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY quotes
@@ -212,7 +156,7 @@ ALTER TABLE ONLY quotes
 
 --
 -- TOC entry 2771 (class 2606 OID 16467)
--- Name: sources_pkey; Type: CONSTRAINT; Schema: public; Owner: ismapro
+-- Name: sources_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY sources
@@ -221,7 +165,7 @@ ALTER TABLE ONLY sources
 
 --
 -- TOC entry 2767 (class 2606 OID 16451)
--- Name: titles_pkey; Type: CONSTRAINT; Schema: public; Owner: ismapro
+-- Name: titles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY titles
@@ -230,7 +174,7 @@ ALTER TABLE ONLY titles
 
 --
 -- TOC entry 2775 (class 2606 OID 16468)
--- Name: fk_titles_quotes; Type: FK CONSTRAINT; Schema: public; Owner: ismapro
+-- Name: fk_titles_quotes; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY quotes
@@ -239,7 +183,7 @@ ALTER TABLE ONLY quotes
 
 --
 -- TOC entry 2774 (class 2606 OID 16473)
--- Name: titles_source_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ismapro
+-- Name: titles_source_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY titles
@@ -249,12 +193,12 @@ ALTER TABLE ONLY titles
 --
 -- TOC entry 2897 (class 0 OID 0)
 -- Dependencies: 7
--- Name: public; Type: ACL; Schema: -; Owner: ismapro
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM ismapro;
-GRANT ALL ON SCHEMA public TO ismapro;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
